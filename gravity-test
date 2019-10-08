@@ -1,0 +1,90 @@
+float playerX = 10;
+float playerY = 300;
+
+
+float speed = 0;
+float gravity = 0.2;
+
+float val = 2.5;
+boolean onscreen = true;
+
+float timeSpentUp = 0;
+
+void setup() {
+  size(600, 600);
+}
+
+void draw() {
+  println("Speed:" + speed);
+  println("gravity:" + gravity);
+  println("y:" + playerY);
+  background(200); 
+
+  fill(0);
+  noStroke();
+  rectMode(CENTER); 
+  fill(102, 102, 0);
+  rect(playerX, playerY, 10, 10); // your character
+  rectMode(CORNER);
+  rect(0, height-20, width, 20);// platform
+  rect(0, height-60, width/4, 20);// platform
+
+
+  playerY = playerY + speed;
+  speed = speed + gravity;
+
+
+  //if square reaches bottom reverse speed
+  if (playerY > height - 30) {
+    speed = speed * -0.95;
+  }
+
+  while (playerY < 10)
+  {
+    playerY = 11;
+  }
+  if (playerX > width)
+  {
+    playerX = width - 10;
+  }
+  if (playerX < 10)
+  {
+    playerX = 10;
+  }
+
+  //if square hits platform
+  if (playerY > (height - 60) &&  playerX < width/4) {
+    speed = speed * -0.95;
+  }
+
+
+
+
+  //object collision detection
+  //This algorithm works by taking the centre points of the two circles and 
+  //ensuring the distance between the centre points are less than the two radii 
+  //added together.This algorithm works by taking the centre points of the two circles and 
+  //ensuring the distance between the centre points are less than the two radii added together.
+
+  //take height of player/2 , height of platform/2
+  //square root of a squared + b squared
+}//end of draw function 
+
+
+
+void keyPressed() {
+  if (key == CODED ) {
+    if (keyCode == RIGHT) {
+      playerX = playerX + 0.98*val;
+    }
+    if (keyCode == LEFT) {
+      playerX = playerX + -0.98*val;
+    }
+  }
+  for (int i =0; i < 2; i ++) {
+    if (keyCode == UP && playerY > 0) {
+      speed = speed * 1.05;
+    }
+    delay(5);
+  }
+}
